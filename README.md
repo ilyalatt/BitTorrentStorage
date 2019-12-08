@@ -1,5 +1,8 @@
 # BitTorrentStorage
 
+[![NuGet version](https://badge.fury.io/nu/BitTorrentStorage.svg)](https://www.nuget.org/packages/BitTorrentStorage)
+[![NuGet version](https://badge.fury.io/nu/BitTorrentStorage.Fuse.svg)](https://www.nuget.org/packages/BitTorrentStorage.Fuse)
+
 ## Why?
 
 `BitTorrentStorage` gives you torrent files random access:
