@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitTorrentStorage", "src\BitTorrentStorage\BitTorrentStorage.csproj", "{F531B75B-BDBC-4198-9B36-C69B00C512BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "src\Playground\Playground.csproj", "{C47B9C0D-4F0F-4441-8817-05D7E09B9651}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitTorrentStorage.Fuse", "src\BitTorrentStorage.Fuse\BitTorrentStorage.Fuse.csproj", "{1483E584-E26A-424D-A642-B8D8507235EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F531B75B-BDBC-4198-9B36-C69B00C512BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F531B75B-BDBC-4198-9B36-C69B00C512BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F531B75B-BDBC-4198-9B36-C69B00C512BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F531B75B-BDBC-4198-9B36-C69B00C512BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47B9C0D-4F0F-4441-8817-05D7E09B9651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47B9C0D-4F0F-4441-8817-05D7E09B9651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47B9C0D-4F0F-4441-8817-05D7E09B9651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47B9C0D-4F0F-4441-8817-05D7E09B9651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1483E584-E26A-424D-A642-B8D8507235EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1483E584-E26A-424D-A642-B8D8507235EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1483E584-E26A-424D-A642-B8D8507235EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1483E584-E26A-424D-A642-B8D8507235EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
