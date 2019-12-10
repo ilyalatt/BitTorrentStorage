@@ -31,7 +31,7 @@ namespace BitTorrentStorage
             get => _position;
             set
             {
-                if (0 > value || value >= Length) throw new ArgumentOutOfRangeException(nameof(value));
+                if (0 > value || value > Length) throw new ArgumentOutOfRangeException(nameof(value));
                 _position = value;
             }
         }
@@ -114,7 +114,9 @@ namespace BitTorrentStorage
             var fs = GetFs();
             cancellationToken.ThrowIfCancellationRequested();
             fs.Position = Position;
-            return await fs.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
+            var bytesRead = await fs.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
+            Position += bytesRead;
+            return bytesRead;
         }
 
         public override int Read(byte[] buffer, int offset, int count) => ReadAsync(buffer, offset, count, default).Result;
