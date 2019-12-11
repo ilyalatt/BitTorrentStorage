@@ -103,29 +103,34 @@ namespace BitTorrentStorage
 
         FileStream GetFs() => _fileStream ??= System.IO.File.OpenRead(File.MonoTorrentFile.FullPath);
 
-        public override async Task<int> ReadAsync(
+        public override async ValueTask<int> ReadAsync(
+            Memory<byte> buffer,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var count = Math.Max(0, Math.Min(buffer.Length, (int) (Length - Position)));
+            if (count == 0) return 0;
+
+            await Fetch(Position, count, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var fs = GetFs();
+            cancellationToken.ThrowIfCancellationRequested();
+
+            fs.Position = Position;
+            var bytesRead = await fs.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            Position += bytesRead;
+            return bytesRead;
+        }
+
+        public override Task<int> ReadAsync(
             byte[] buffer,
             int offset,
             int count, 
             CancellationToken cancellationToken
-        )
-        {
-            count = Math.Max(0, Math.Min(count, (int) (Length - Position)));
-            if (count == 0) return 0;
-            
-            await Fetch(Position, count, cancellationToken).ConfigureAwait(false);
-            cancellationToken.ThrowIfCancellationRequested();
-            
-            var fs = GetFs();
-            cancellationToken.ThrowIfCancellationRequested();
-            
-            fs.Position = Position;
-            var bytesRead = await fs.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
-            cancellationToken.ThrowIfCancellationRequested();
-            
-            Position += bytesRead;
-            return bytesRead;
-        }
+        ) => ReadAsync(buffer.AsMemory().Slice(offset, count), cancellationToken).AsTask();
 
         public override int Read(byte[] buffer, int offset, int count) => ReadAsync(buffer, offset, count, default).Result;
 
