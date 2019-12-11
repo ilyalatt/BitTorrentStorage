@@ -59,11 +59,11 @@ namespace BitTorrentStorage
             
             var mFile = File.MonoTorrentFile;
             var startPiece = currentEndPiece + 1;
-            var endPiece = Math.Min(
-                startPiece + PrefetchNextPiecesCount,
-                mFile.EndPieceIndex
+            var count = Math.Min(
+                PrefetchNextPiecesCount,
+                mFile.EndPieceIndex - startPiece + 1
             );
-            var pieces = Enumerable.Range(startPiece, endPiece - startPiece + 1);
+            var pieces = Enumerable.Range(startPiece, count);
             // ReSharper disable once PossibleMultipleEnumeration
             var oldPieces = _prefetchRequests.Keys.Except(pieces).ToList();
             // ReSharper disable once PossibleMultipleEnumeration
@@ -110,11 +110,19 @@ namespace BitTorrentStorage
             CancellationToken cancellationToken
         )
         {
-            await Fetch(Position + offset, count, cancellationToken).ConfigureAwait(false);
+            count = Math.Max(0, Math.Min(count, (int) (Length - Position)));
+            if (count == 0) return 0;
+            
+            await Fetch(Position, count, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+            
             var fs = GetFs();
             cancellationToken.ThrowIfCancellationRequested();
+            
             fs.Position = Position;
             var bytesRead = await fs.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+            
             Position += bytesRead;
             return bytesRead;
         }
