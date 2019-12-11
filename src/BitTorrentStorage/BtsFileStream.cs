@@ -108,7 +108,7 @@ namespace BitTorrentStorage
             CancellationToken cancellationToken = default
         )
         {
-            var count = Math.Max(0, Math.Min(buffer.Length, (int) (Length - Position)));
+            var count = (int) Math.Min(buffer.Length, Math.Max(0, Length - Position));
             if (count == 0) return 0;
 
             await Fetch(Position, count, cancellationToken).ConfigureAwait(false);

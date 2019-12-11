@@ -110,7 +110,6 @@ namespace BitTorrentStorage.Fuse
 			async Task<int> ReadAsync()
 			{	
 				var stream = handle.Stream;
-				var toRead = (int) Math.Min(buf.Length, stream.Length - offset);
 				var ct = handle.Cts.Token;
 				var semaphore = handle.Semaphore;
 				
@@ -118,7 +117,7 @@ namespace BitTorrentStorage.Fuse
 				{
 					await semaphore.WaitAsync(ct);
 					stream.Seek(offset, SeekOrigin.Begin);
-					return await stream.ReadAsync(buf, 0, toRead, ct);
+					return await stream.ReadAsync(buf.AsMemory(), ct);
 				}
 				catch (OperationCanceledException)
 				{
