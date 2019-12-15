@@ -9,7 +9,7 @@ namespace Playground
 {
     static class Program
     {
-        // You need to run `sudo umount ~/mnt/bts` if you want to run this project again.
+        // You need to run `fusermount -u ~/mnt/bts` if you want to run this project again.
         const string MountPathInUserDir = "/mnt/bts";
         static readonly string MountPath = Path.Join(
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
