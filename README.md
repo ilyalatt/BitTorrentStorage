@@ -28,7 +28,7 @@ await fs.CopyToAsync(ms);
 `BitTorrentStorage.Fuse` gives you a simple way to use tools like VLC:
 
 ```C#
-// You need to run `sudo umount ~/mnt/bts` if you want to run this project again.
+// You need to run `fusermount -u ~/mnt/bts` if you want to run this project again.
 var mountPath = Path.Join(
     Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
     "/mnt/bts"
